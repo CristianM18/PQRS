@@ -47,51 +47,25 @@
         <div class="card-body">
           <h1 class="card-title">Registrar Empleado</h1>
           <br>
-          <form th:action="@{/empleados}" th:object="${empleado}" method="POST">
+          <form th:action="@{/radicados}" th:object="${radicado}" method="POST">
             <div class="row">
             <div class="col-4">
               <div class="mb-3">
                 <div class="form-group">
-                  <input id="center" type="text" name="firstName" th:field="*{firstName}" class="form-control"
-                    placeholder="Nombre" />
+                  <input id="center" type="text" name="firstName" th:field="*{noradicado}" class="form-control"
+                    placeholder="Numero de radicado" />
                 </div>
                 <br>
                 <div class="form-group">
-                  <input id="center" type="text" name="lastName" th:field="*{lastName}" class="form-control"
-                    placeholder="Apellido" />
+                  <input id="center" type="text" name="lastName" th:field="*{tiporadicado}" class="form-control"
+                    placeholder="Tipo de Radicado" />
                 </div>
                 <br>
                 <div class="form-group">
-                  <input id="center" type="text" name="email" th:field="*{email}" class="form-control"
-                    placeholder="Correo Electrónico" />
+                  <input id="center" type="text" name="email" th:field="*{estadoradicado}" class="form-control"
+                    placeholder="Estado de Radicado" />
                 </div>
                 <br>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <div class="form-group">
-                  <input id="center" type="text" name="identificacion" th:field="*{identificacion}" class="form-control"
-                    placeholder="No. Identificacion" />
-                </div>
-                <br>
-                <div class="form-group">
-                  <input id="center" type="text" name="telefono" th:field="*{telefono}" class="form-control"
-                    placeholder="Telefono" />
-                </div>
-                <br>
-                <div class="form-group">
-                  <input id="center" type="text" name="direccion" th:field="*{direccion}" class="form-control"
-                    placeholder="Direccion de Residencia" />
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <label>Cargos</label>
-                <select th:field="${empleado.cargos}" name="cargos" class="form-control" multiple="true">
-                  <option th:each="cargo :${cargosList}" th:value="${cargo.id}" th:text="${cargo.name}" />
-                </select>
               </div>
             </div>
             <div class="box-footer">
