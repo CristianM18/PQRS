@@ -10,30 +10,30 @@ import com.proyecto.empleados.Repository.IRadicadoRepository;
 @Service
 public class RadicadoService implements IRadicadoService {
 
-    private IRadicadoRepository radiacadoRepository;
+    private IRadicadoRepository radicadoRepository;
 
-    public RadicadoService(IRadicadoRepository radiacadoRepository) {
-        this.radiacadoRepository = radiacadoRepository;
+    public RadicadoService(IRadicadoRepository radicadoRepository) {
+        this.radicadoRepository = radicadoRepository;
     }
 
     @Override
     public List<Radicado> getAllRadicado() {
-        return radiacadoRepository.findAll();
+        return radicadoRepository.findAll();
     }
 
     @Override
     public Radicado saveRadicado(Radicado radicado) {
-        return radiacadoRepository.save(radicado);
+        return radicadoRepository.save(radicado);
     }
 
     @Override
     public Radicado updateRadicado(Radicado radicado) {
-        return radiacadoRepository.save(radicado);
+        return radicadoRepository.save(radicado);
     }
 
     @Override
-    public List<Radicado> getRadicadoByNo(String name) {
-        return radiacadoRepository.findByNameContaining(name);
+    public Radicado getRadicadoById(Long id) {
+        return radicadoRepository.findById(id).get();
     }
 
 }

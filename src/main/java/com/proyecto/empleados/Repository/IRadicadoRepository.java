@@ -10,7 +10,7 @@ import com.proyecto.empleados.Entity.Radicado;
 
 public interface IRadicadoRepository extends JpaRepository<Radicado, Long> {
 
-    @Query("FROM Radicado s WHERE s.noradicado LIKE :noradicado")
+    @Query("FROM Radicado r WHERE r.noradicado LIKE :noradicado")
     public List<Radicado> findByNameContaining(@Param("noradicado") String noradicado);
 
 }

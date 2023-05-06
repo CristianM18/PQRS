@@ -8,7 +8,7 @@ public interface IRadicadoService {
 
     List<Radicado> getAllRadicado();
 
-    List<Radicado> getRadicadoByNo(String noradicado);
+    Radicado getRadicadoById(Long id);
 
     Radicado saveRadicado(Radicado radicado);
 
