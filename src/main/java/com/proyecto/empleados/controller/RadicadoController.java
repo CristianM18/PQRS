@@ -38,12 +38,12 @@ public class RadicadoController {
 
         Radicado radicado = new Radicado();
 
-        model.addAttribute("radicados", radicado);
+        model.addAttribute("radicado", radicado);
 
         return "crear_radicado";
     }
 
-    @GetMapping("/radicados/edit/{id}")
+    @GetMapping("/radicados/see/{id}")
     public String editEmpleadoForm(@PathVariable Long id, Model model) {
         Radicado st = RadicadoService.getRadicadoById(id);
 

@@ -50,49 +50,34 @@
     <div class="card text-center">
       <div class="divr">
         <br>
-        <form th:action="@{/radicados/{id}(id=${radicado.id})}" th:object="${radicado}" method="POST">
+        <form th:action="@{/radicados/{id}(id=${radicado.id})}" th:object="${radicado}" method="GET">
           <div class="row">
             <div class="col-4">
               <div class="mb-3">
                 <div class="form-group">
                   No. Radicado
-                  <input id="center" type="text" name="noradicado" th:field="*{noradicado}" class="form-control"
+                  <input id="center" type="text" name="noradicado" th:value="*{noradicado}" class="form-control"
                     placeholder="No. Radicado" />
                 </div>
                 <div class="form-group">
                   Fecha del radicado
-                  <input id="center" type="text" name="fecharadicado" th:field="*{fecharadicado}" class="form-control"
+                  <input id="center" type="text" name="fecharadicado" th:value="*{fecharadicado}" class="form-control"
                     placeholder="Fecha de Radicado" />
                 </div>
                 <div class="form-group">
                   Cedula
-                  <input id="center" type="text" name="cedula" th:field="*{cedula}" class="form-control"
+                  <input id="center" type="text" name="cedula" th:value="*{cedula}" class="form-control"
                     placeholder="Cedula" />
                 </div>
                 <br>
                 <div class="form-check">
-                  <b>Tipo de petición</b>
+                  <b>Tipo de PQRS</b>
                   <br><br>
                   <label>
-                    <input type="radio" name="tiporadicado" value="Petición" required>
-                    Petición
+                    <div class="form-group">
+                      <input id="center" type="text" name="tiporadicado" th:value="*{tiporadicado}" class="text-center"/>
+                    </div>
                   </label>
-                  <br>
-                  <label>
-                    <input type="radio" name="tiporadicado" value="Queja" required>
-                    Queja
-                  </label>
-                  <br>
-                  <label>
-                    <input type="radio" name="tiporadicado" value="Reclamo" required>
-                    Reclamo
-                  </label>
-                  <br>
-                  <label>
-                    <input type="radio" name="tiporadicado" value="Sujerencia" required>
-                    Sujerencia
-                  </label>
-                  <br>
                 </div>
                 <br>
               </div>
