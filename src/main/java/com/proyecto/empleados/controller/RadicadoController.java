@@ -14,6 +14,8 @@ import com.proyecto.empleados.service.RadicadoService;
 @Controller
 public class RadicadoController {
 
+    
+
     @Autowired
     private RadicadoService RadicadoService;
 

@@ -39,10 +39,10 @@
   </style>
 </head>
 
-
 <body>
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
+    
       <b class="navbar-brand" style="font-size: 30px;">PQRS Ya!</b>
     </div>
   </nav>
@@ -50,98 +50,71 @@
     <div class="card text-center">
       <div class="divr">
         <br>
-        <form th:action="@{/radicados/{id}(id=${radicado.id})}" th:object="${radicado}" method="GET">
+        <form th:action="@{/radicados/{id}(id=${radicado.id})}" th:object="${radicado}" method="POST">
+          <h2> No. Radicado: <strong th:text="*{noradicado}"></strong></h2>
+          <br>
           <div class="row">
             <div class="col-4">
               <div class="mb-3">
-                <div class="form-group">
-                  No. Radicado
-                  <input id="center" type="text" name="noradicado" th:value="*{noradicado}" class="form-control"
-                    placeholder="No. Radicado" />
-                </div>
-                <div class="form-group">
-                  Fecha del radicado
-                  <input id="center" type="text" name="fecharadicado" th:value="*{fecharadicado}" class="form-control"
-                    placeholder="Fecha de Radicado" />
-                </div>
-                <div class="form-group">
-                  Cedula
-                  <input id="center" type="text" name="cedula" th:value="*{cedula}" class="form-control"
-                    placeholder="Cedula" />
-                </div>
+                <b>Tipo de PQRS</b>
                 <br>
-                <div class="form-check">
-                  <b>Tipo de PQRS</b>
-                  <br><br>
-                  <label>
-                    <div class="form-group">
-                      <input id="center" type="text" name="tiporadicado" th:value="*{tiporadicado}" class="text-center"/>
-                    </div>
-                  </label>
-                </div>
+                <text name="tiporadicado" th:text="*{tiporadicado}" class="form-control" readonly/>
+                <b>Fecha del radicado</b>
+                <text name="fecharadicado" th:text="*{fecharadicado}" class="form-control" readonly/>
+                <b>Cedula</b>
+                <text name="cedula" th:text="*{cedula}" class="form-control" readonly/>
+                <b>Anexos</b>
+                <textarea style="resize:none; height: 130px;" name="anexoradicado" th:text="*{anexoradicado}"
+                  class="form-control" readonly />
                 <br>
               </div>
             </div>
             <div class="col-4">
               <div class="mb-3">
-                <div class="form-group">
-                  Comentarios
-                  <input id="center" type="text" name="comentarioradicado" th:field="*{comentarioradicado}"
-                    class="form-control" placeholder="Comentarios" />
-                </div>
-                <div class="form-group">
-                  Justificación del estado
-                  <input id="center" type="text" name="justificacionradicado" th:field="*{justificacionradicado}"
-                    class="form-control" placeholder="Justificacion" />
-                </div>
-                <div class="form-group">
-                  Anexos
-                  <input id="center" type="text" name="anexoradicado" th:field="*{anexoradicado}" class="form-control"
-                    placeholder="Anexos" />
-                </div>
-                <br>
-                <div class="form-check">
-                  <b> Estado</b>
-                  <br><br>
-                  <label>
-                    <input type="radio" name="estadoradicado" value="Nuevo" required>
-                    Nuevo
-                  </label>
-                  <br>
-                  <label>
-                    <input type="radio" name="estadoradicado" value="En Proceso" required>
-                    En proceso
-                  </label>
-                  <br>
-                  <label>
-                    <input type="radio" name="estadoradicado" value="Resuelto" required>
-                    Resuelto
-                  </label>
-                  <br>
-                  <label>
-                    <input type="radio" name="estadoradicado" value="Rechazado" required>
-                    Rechazado
-                  </label>
-                  <br>
-                </div>
-
+                <b>Comentarios</b>
+                <textarea style="resize:none; height: 316px;" name="comentarioradicado" th:text="*{comentarioradicado}"
+                  class="form-control" readonly />
               </div>
-              <div class="col-4">
-                <div class="mb-3">
-                  <div class="box-footer mt-4">
-                    <button type="submit" class="btn btn-success">Actualizar</button>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <b>Estado de PQRS</b>
+                <br>
+                <div class="btn-group">
+                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Nuevo</a>
+                    <a class="dropdown-item" href="#">En proceso</a>
+                    <a class="dropdown-item" href="#">Resuelto</a>
+                    <a class="dropdown-item" href="#">Rechazado</a>
                   </div>
                 </div>
+                <label>
+                  <div class="form-group">
+                    <input id="center" type="text" name="estadoradicado" th:value="*{estadoradicado}"
+                      class="text-center" />
+                  </div>
+                </label>
+                <br>
+                <b>Razón del estado</b>
+                <textarea style="resize:none; height: 175px;" name="justificacionradicado"
+                  th:text="*{justificacionradicado}" class="form-control" readonly />
+                <div class="box-footer mt-4">
+                  <button type="submit" class="btn btn-success" id="button1">Actualizar</button>
+                  <button type="submit" class="btn btn-primary" id="button2">Descargar Anexos</button>
+                </div>
               </div>
-              <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-                crossorigin="anonymous"></script>
-              <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                crossorigin="anonymous"></script>
-              <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-                crossorigin="anonymous"></script>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+              integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+              crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+              integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+              crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+              integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+              crossorigin="anonymous"></script>
 </body>
-
 </html>

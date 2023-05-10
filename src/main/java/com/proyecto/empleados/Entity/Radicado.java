@@ -21,7 +21,7 @@ public class Radicado {
     @Column(length = 11)
     private String cedula;
 
-    @Column(length = 8)
+    @Column(length = 10)
     private String fecharadicadoado;
 
     @Column(length = 10)

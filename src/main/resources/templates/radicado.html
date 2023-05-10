@@ -33,7 +33,7 @@
       padding: 5px;
       text-align: center;
       width: 100%;
-      background-color: rgb(195, 214, 128);
+      background-color: rgb(222, 226, 204);
       box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     }
 
@@ -51,29 +51,69 @@
     </div>
   </nav>
 
-  <div class="container">
+  <div class="container mt-4">
     <div class="container container-fluid">
-      <table class="table table-striped table-sm table-bordered">
-        <thead class="table">
-          <tr>
-            <th class="text-center"># de Radicado</th>
-            <th class="text-center">Cedula</th>
-            <th class="text-center">Tipo de Radicado</th>
-            <th class="text-center">Estado de Radicado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="radicado: ${radicados}">
-            <td th:text="${radicado.noradicado}"></td>
-            <td th:text="${radicado.cedula}"></td>
-            <td th:text="${radicado.tiporadicado}"></td>
-            <td th:text="${radicado.estadoradicado}"></td>
-            <td>
-              <a th:href="@{/radicados/see/{id}(id=${radicado.id})}" class="btn btn-warning">Consultar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="divr">
+        <div class="row">
+          <div class="col-3">
+            <div class="mb-3">
+              <br>
+              <h3><b>Consultar PQRS</b></h3>
+              <br>
+              <b>Numero de radicado</b>
+              <input type="text" id="myInput" onkeyup="filtroNumero()" placeholder="# de radicado">
+              <br><br><br>
+              <b>Tipo de radicado</b>
+              <br>
+              <select type="search" class="select-table-filter" data-table="order-table">
+                <option value="">Reset</option>  
+                <option value="Nuevo">Nuevo</option>  
+                <option value="Vanda">Vanda</option>  
+              <select>
+              <br><br><br>
+              <b>Estado de radicado</b>
+              <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Small button
+              </button>
+              
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Nuevo</a>
+                  <a class="dropdown-item" href="#">En proceso</a>
+                  <a class="dropdown-item" href="#">Resuelto</a>
+                  <a class="dropdown-item" href="#">Rechazado</a>
+                </div>
+             
+            </div>
+          </div>
+          <div class="col-9">
+            <div class="mb-3">
+              <br>
+              <table class="table table-striped table-sm table-bordered" id="myTable">
+                <thead class="table">
+                  <tr>
+                    <th class="text-center"># de Radicado</th>
+                    <th class="text-center">Cedula</th>
+                    <th class="text-center">Tipo de Radicado</th>
+                    <th class="text-center">Estado de Radicado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="radicado: ${radicados}">
+                    <td th:text="${radicado.noradicado}"></td>
+                    <td th:text="${radicado.cedula}"></td>
+                    <td th:text="${radicado.tiporadicado}"></td>
+                    <td th:text="${radicado.estadoradicado}"></td>
+                    <td>
+                      <a th:href="@{/radicados/see/{id}(id=${radicado.id})}" class="btn btn-warning">Consultar</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -85,6 +125,92 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script>
+    function filtroNumero() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+<script>
+  (function(document) {
+	'use strict';
+
+	var LightTableFilter = (function(Arr) {
+
+		var _input;
+    var _select;
+
+		function _onInputEvent(e) {
+			_input = e.target;
+			var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+			Arr.forEach.call(tables, function(table) {
+				Arr.forEach.call(table.tBodies, function(tbody) {
+					Arr.forEach.call(tbody.rows, _filter);
+				});
+			});
+		}
+    
+		function _onSelectEvent(e) {
+			_select = e.target;
+			var tables = document.getElementsByClassName(_select.getAttribute('data-table'));
+			Arr.forEach.call(tables, function(table) {
+				Arr.forEach.call(table.tBodies, function(tbody) {
+					Arr.forEach.call(tbody.rows, _filterSelect);
+				});
+			});
+		}
+
+		function _filter(row) {
+      
+			var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+			row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+
+		}
+    
+		function _filterSelect(row) {
+     
+			var text_select = row.textContent.toLowerCase(), val_select = _select.options[_select.selectedIndex].value.toLowerCase();
+			row.style.display = text_select.indexOf(val_select) === -1 ? 'none' : 'table-row';
+
+		}
+
+		return {
+			init: function() {
+				var inputs = document.getElementsByClassName('light-table-filter');
+				var selects = document.getElementsByClassName('select-table-filter');
+				Arr.forEach.call(inputs, function(input) {
+					input.oninput = _onInputEvent;
+				});
+				Arr.forEach.call(selects, function(select) {
+         select.onchange  = _onSelectEvent;
+				});
+			}
+		};
+	})(Array.prototype);
+
+	document.addEventListener('readystatechange', function() {
+		if (document.readyState === 'complete') {
+			LightTableFilter.init();
+		}
+	});
+
+})(document);
+</script>
 </body>
 
 </html>
