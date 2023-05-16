@@ -42,27 +42,30 @@
 <body>
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
-    
+
       <b class="navbar-brand" style="font-size: 30px;">PQRS Ya!</b>
     </div>
   </nav>
   <div class="container mt-4">
     <div class="card text-center">
-      <div class="divr">
-        <br>
-        <form th:action="@{/radicados/{id}(id=${radicado.id})}" th:object="${radicado}" method="POST">
-          <h2> No. Radicado: <strong th:text="*{noradicado}"></strong></h2>
-          <br>
+      <div class="divr">        
+        <br>        
+        <form th:action="@{/radicados/{id}(id=${radicado.id})}" th:object="${radicado}" method="POST">          
+          <h2> No. Radicado: <strong name="noradicado" th:text="*{noradicado}"></h2>
+            <a style="align-self: left;"th:href="@{/radicados}" class="btn btn-primary btn-sm" aria-current="page" href="#">Back</a>     
           <div class="row">
             <div class="col-4">
               <div class="mb-3">
                 <b>Tipo de PQRS</b>
                 <br>
-                <text name="tiporadicado" th:text="*{tiporadicado}" class="form-control" readonly/>
+                <textarea style="resize:none; height: 1px; text-align: center;" name="tiporadicado" th:text="*{tiporadicado}"
+                  class="form-control" readonly />
                 <b>Fecha del radicado</b>
-                <text name="fecharadicado" th:text="*{fecharadicado}" class="form-control" readonly/>
+                <textarea style="resize:none; height: 1px; text-align: center;" name="fecharadicado" th:text="*{fecharadicado}"
+                  class="form-control" readonly />
                 <b>Cedula</b>
-                <text name="cedula" th:text="*{cedula}" class="form-control" readonly/>
+                <textarea style="resize:none; height: 1px; text-align: center;" name="cedula" th:text="*{cedula}" class="form-control"
+                  readonly />
                 <b>Anexos</b>
                 <textarea style="resize:none; height: 130px;" name="anexoradicado" th:text="*{anexoradicado}"
                   class="form-control" readonly />
@@ -80,30 +83,22 @@
               <div class="mb-3">
                 <b>Estado de PQRS</b>
                 <br>
-                <div class="btn-group">
-                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Nuevo</a>
-                    <a class="dropdown-item" href="#">En proceso</a>
-                    <a class="dropdown-item" href="#">Resuelto</a>
-                    <a class="dropdown-item" href="#">Rechazado</a>
-                  </div>
-                </div>
+                <select name="estadoradicado" style="text-align: center;">
+                  <option th:text="*{estadoradicado}"></option>
+                  <option value="Nuevo">Nuevo</option>
+                  <option value="En Proceso">En Proceso</option>
+                  <option value="Resuelto">Resuelto</option>
+                  <option value="Rechazado">Rechazado</option>
+                </select>
                 <label>
-                  <div class="form-group">
-                    <input id="center" type="text" name="estadoradicado" th:value="*{estadoradicado}"
-                      class="text-center" />
-                  </div>
                 </label>
                 <br>
                 <b>Razón del estado</b>
                 <textarea style="resize:none; height: 175px;" name="justificacionradicado"
-                  th:text="*{justificacionradicado}" class="form-control" readonly />
+                  th:text="*{justificacionradicado}" class="form-control"/>
                 <div class="box-footer mt-4">
-                  <button type="submit" class="btn btn-success" id="button1">Actualizar</button>
-                  <button type="submit" class="btn btn-primary" id="button2">Descargar Anexos</button>
+                  <button class="btn btn-success" id="button1">Actualizar</button>
+                  <button class="btn btn-primary" id="button2">Descargar Anexos</button>
                 </div>
               </div>
             </div>
@@ -117,4 +112,5 @@
               integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
               crossorigin="anonymous"></script>
 </body>
+
 </html>

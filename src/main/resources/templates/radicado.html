@@ -61,50 +61,52 @@
               <h3><b>Consultar PQRS</b></h3>
               <br>
               <b>Numero de radicado</b>
-              <input type="text" id="myInput" onkeyup="filtroNumero()" placeholder="# de radicado">
+              <input type="text" id="myInput" onkeyup="filtroNumero()" placeholder="# de radicado"
+                style="text-align: center;">
               <br><br><br>
               <b>Tipo de radicado</b>
               <br>
-              <select type="search" class="select-table-filter" data-table="order-table">
-                <option value="">Reset</option>  
-                <option value="Nuevo">Nuevo</option>  
-                <option value="Vanda">Vanda</option>  
-              <select>
+              <select id="filtro1" style="text-align: center;">
+                <option value="todos">Todos</option>
+                <option value="Petición">Petición</option>
+                <option value="Queja">Queja</option>
+                <option value="Reclamo">Reclamo</option>
+                <option value="Sugerencia">Sugerencia</option>
+              </select>
               <br><br><br>
               <b>Estado de radicado</b>
-              <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Small button
-              </button>
-              
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Nuevo</a>
-                  <a class="dropdown-item" href="#">En proceso</a>
-                  <a class="dropdown-item" href="#">Resuelto</a>
-                  <a class="dropdown-item" href="#">Rechazado</a>
-                </div>
-             
+              <select id="filtro2" style="text-align: center;">
+                <option value="todos">Todos</option>
+                <option value="Nuevo">Nuevo</option>
+                <option value="En Proceso">En Proceso</option>
+                <option value="Resuelto">Resuelto</option>
+                <option value="Rechazado">Rechazado</option>
+              </select>
             </div>
+            <br><br>
+            <button type="button" class="btn btn-primary">Generar Informe</button>
+            <br><br><br><br>
           </div>
           <div class="col-9">
             <div class="mb-3">
               <br>
               <table class="table table-striped table-sm table-bordered" id="myTable">
                 <thead class="table">
-                  <tr>
+                  <tr class="table-secondary">
                     <th class="text-center"># de Radicado</th>
                     <th class="text-center">Cedula</th>
                     <th class="text-center">Tipo de Radicado</th>
                     <th class="text-center">Estado de Radicado</th>
+                    <th class="text-center">Acción</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr th:each="radicado: ${radicados}">
-                    <td th:text="${radicado.noradicado}"></td>
-                    <td th:text="${radicado.cedula}"></td>
-                    <td th:text="${radicado.tiporadicado}"></td>
-                    <td th:text="${radicado.estadoradicado}"></td>
-                    <td>
+                    <td th:text="${radicado.noradicado}" class="table-light"></td>
+                    <td th:text="${radicado.cedula}" class="table-light"></td>
+                    <td th:text="${radicado.tiporadicado}" class="table-light"></td>
+                    <td th:text="${radicado.estadoradicado}" class="table-light"></td>
+                    <td class="table-light">
                       <a th:href="@{/radicados/see/{id}(id=${radicado.id})}" class="btn btn-warning">Consultar</a>
                     </td>
                   </tr>
@@ -146,71 +148,35 @@
       }
     }
   </script>
-<script>
-  (function(document) {
-	'use strict';
+  <script>
+    var filtro1 = document.getElementById('filtro1');
+    var filtro2 = document.getElementById('filtro2');
+    var tabla = document.getElementById('myTable');
+    var filas = tabla.getElementsByTagName('tr');
 
-	var LightTableFilter = (function(Arr) {
+    filtro1.addEventListener('change', filtrarTabla);
+    filtro2.addEventListener('change', filtrarTabla);
 
-		var _input;
-    var _select;
+    function filtrarTabla() {
+      var valorFiltro1 = filtro1.value;
+      var valorFiltro2 = filtro2.value;
 
-		function _onInputEvent(e) {
-			_input = e.target;
-			var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-			Arr.forEach.call(tables, function(table) {
-				Arr.forEach.call(table.tBodies, function(tbody) {
-					Arr.forEach.call(tbody.rows, _filter);
-				});
-			});
-		}
-    
-		function _onSelectEvent(e) {
-			_select = e.target;
-			var tables = document.getElementsByClassName(_select.getAttribute('data-table'));
-			Arr.forEach.call(tables, function(table) {
-				Arr.forEach.call(table.tBodies, function(tbody) {
-					Arr.forEach.call(tbody.rows, _filterSelect);
-				});
-			});
-		}
+      for (var i = 1; i < filas.length; i++) {
+        var fila = filas[i];
+        var columna1 = fila.getElementsByTagName('td')[2];
+        var columna2 = fila.getElementsByTagName('td')[3];
 
-		function _filter(row) {
-      
-			var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-			row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+        var cumpleFiltro1 = valorFiltro1 === 'todos' || columna1.textContent === valorFiltro1;
+        var cumpleFiltro2 = valorFiltro2 === 'todos' || columna2.textContent === valorFiltro2;
 
-		}
-    
-		function _filterSelect(row) {
-     
-			var text_select = row.textContent.toLowerCase(), val_select = _select.options[_select.selectedIndex].value.toLowerCase();
-			row.style.display = text_select.indexOf(val_select) === -1 ? 'none' : 'table-row';
-
-		}
-
-		return {
-			init: function() {
-				var inputs = document.getElementsByClassName('light-table-filter');
-				var selects = document.getElementsByClassName('select-table-filter');
-				Arr.forEach.call(inputs, function(input) {
-					input.oninput = _onInputEvent;
-				});
-				Arr.forEach.call(selects, function(select) {
-         select.onchange  = _onSelectEvent;
-				});
-			}
-		};
-	})(Array.prototype);
-
-	document.addEventListener('readystatechange', function() {
-		if (document.readyState === 'complete') {
-			LightTableFilter.init();
-		}
-	});
-
-})(document);
-</script>
+        if (cumpleFiltro1 && cumpleFiltro2) {
+          fila.style.display = '';
+        } else {
+          fila.style.display = 'none';
+        }
+      }
+    }
+  </script>
 </body>
 
 </html>

@@ -46,7 +46,7 @@ public class RadicadoController {
     }
 
     @GetMapping("/radicados/see/{id}")
-    public String editEmpleadoForm(@PathVariable Long id, Model model) {
+    public String editRadicadoForm(@PathVariable Long id, Model model) {
         Radicado st = RadicadoService.getRadicadoById(id);
 
         model.addAttribute("radicado", st);
@@ -55,7 +55,7 @@ public class RadicadoController {
     }
 
     @PostMapping("/radicados/{id}")
-    public String updateEmpleado(@PathVariable Long id,
+    public String updateRadicado(@PathVariable Long id,
             @ModelAttribute("radicado") Radicado radicado,
             Model model) {
         // sacar el estudiante de la b.d. por el id
